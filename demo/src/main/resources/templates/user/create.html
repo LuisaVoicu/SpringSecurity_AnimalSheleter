@@ -60,6 +60,20 @@
                    class="form-control" required name="password" th:field="*{password}" >
         </div>
     </div>
+
+    <div class="mb-3 row">
+        <label>User Roles
+            <select th:field="${user.roles}">
+                <option th:each="role : ${roles}"
+                        th:value="${role.id}"
+                        th:text="${role.role}"
+                ></option>
+                <p class="error" th:errors="${user.roles}"></p>
+            </select>
+        </label>
+    </div>
+
+
     <div>
         <button type="submit" class="btn btn-success">Create User</button>
     </div>

@@ -17,8 +17,8 @@
     <div class="mb-3 row">
         <label for="name" class="col-sm-2 col-form-label">Name</label>
         <div class="col-sm-6">
-            <input type="hidden"  id="name" autofocus="autofocus"
-                   class="form-control" required name="name" th:field="*{name}" >
+            <input type="text" id="name" autofocus="autofocus"
+                   class="form-control" readonly required name="name" th:field="*{name}">
         </div>
     </div>
 
@@ -37,6 +37,17 @@
                    class="form-control" required name="weight" th:field="*{weight}" >
         </div>
     </div>
+
+<!--    <div class="mb-3 row">-->
+<!--        <label>Pet Type-->
+<!--            <select th:field="${pet.petType}">-->
+<!--                <option th:each="pet_type : ${petTypes}"-->
+<!--                        th:value="${pet_type.id}"-->
+<!--                        th:text="${pet_type.name}"-->
+<!--                ></option>-->
+<!--            </select>-->
+<!--        </label>-->
+<!--    </div>-->
 
     <div>
         <button type="submit" class="btn btn-success">Edit Pet</button>

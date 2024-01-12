@@ -2,10 +2,13 @@ package com.example.demo.controller;
 
 import com.example.demo.dto.PetDto;
 import com.example.demo.dto.PetDto;
+import com.example.demo.dto.PetTypeDto;
 import com.example.demo.model.Pet;
+import com.example.demo.model.PetType;
 import com.example.demo.model.User;
 import com.example.demo.service.PetService;
 import com.example.demo.service.PetService;
+import com.example.demo.service.PetTypeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,15 +24,18 @@ import java.util.Optional;
 public class PetController {
 
     private final PetService petService;
+    private final PetTypeService petTypeService;
 
 
     //todo add Pet type to create operation
+
     // CREATE
     @GetMapping({"/pets/create"})
     public String displayCreatePetForm(Model model) {
 
         model.addAttribute("title", "Register");
         model.addAttribute("pet", new Pet());
+        model.addAttribute("petTypes", petTypeService.findAllPetTypes());
 
         return "/pet/create";
     }
@@ -86,6 +92,12 @@ public class PetController {
         } else {
             model.addAttribute("title", pet.getName() + " Details");
             model.addAttribute("pet", pet);
+            List<PetType> lst = petTypeService.findAllPetTypes();
+
+            for(PetType p : lst){
+                System.out.println("@@@@@@@@@@@@@@@@@@@ " + p.getId() + p.getName());
+            }
+            model.addAttribute("petTypes", petTypeService.findAllPetTypes());
         }
 
 
@@ -106,8 +118,10 @@ public class PetController {
 
             if(pet != null) {
 
+                System.out.println("");
                 pet.setWeight(editedPet.getWeight());
                 pet.setAge(editedPet.getAge());
+                pet.setPetType(editedPet.getPetType());
                 this.petService.updatePet(pet);
 
             }

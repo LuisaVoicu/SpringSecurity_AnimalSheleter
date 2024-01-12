@@ -2,6 +2,7 @@ package com.example.demo.service;
 
 import com.example.demo.dto.RoleDto;
 import com.example.demo.mapper.RoleMapper;
+import com.example.demo.model.PetType;
 import com.example.demo.model.Role;
 import com.example.demo.repository.RoleRepository;
 import lombok.RequiredArgsConstructor;
@@ -27,6 +28,10 @@ public class RoleService {
 
     public List<RoleDto> getAllRoles(){
         return roleMapper.roleListEntityToDto(roleRepository.findAll());
+    }
+
+    public List<Role> findAllRoles(){
+        return roleRepository.findAll();
     }
 
     public RoleDto createRole(Role role){

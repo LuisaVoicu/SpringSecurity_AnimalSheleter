@@ -38,6 +38,18 @@
         </div>
     </div>
 
+    <div class="mb-3 row">
+        <label>Pet Type
+            <select th:field="${pet.petType}">
+                <option th:each="pet_type : ${petTypes}"
+                        th:value="${pet_type.id}"
+                        th:text="${pet_type.name}"
+                ></option>
+                <p class="error" th:errors="${pet.petType}"></p>
+            </select>
+        </label>
+    </div>
+
     <div>
         <button type="submit" class="btn btn-success">Create Pet</button>
     </div>

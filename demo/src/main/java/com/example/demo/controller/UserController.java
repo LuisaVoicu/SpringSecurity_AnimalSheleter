@@ -3,6 +3,7 @@ package com.example.demo.controller;
 import com.example.demo.dto.UserDto;
 import com.example.demo.model.RegistrationRequest;
 import com.example.demo.model.User;
+import com.example.demo.service.RoleService;
 import com.example.demo.service.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -21,6 +22,7 @@ import java.util.Optional;
 public class UserController {
 
     private final UserService userService;
+    private final RoleService roleService;
 
 
     // CREATE
@@ -30,6 +32,7 @@ public class UserController {
         model.addAttribute("title", "Register");
         model.addAttribute("registrationSuccess", success);
         model.addAttribute("user", new RegistrationRequest());
+        model.addAttribute("roles", roleService.findAllRoles());
 
         return "/user/create";
     }
@@ -82,6 +85,8 @@ public class UserController {
             User user = (User)userOpt.get();
             model.addAttribute("title", user.getUsername() + " Details");
             model.addAttribute("user", user);
+            model.addAttribute("roles", roleService.findAllRoles());
+
         }
 
 
@@ -104,7 +109,7 @@ public class UserController {
                 userOpt.get().setFirstName(editedUser.getFirstName());
                 userOpt.get().setLastName(editedUser.getLastName());
                 userOpt.get().setEmailAddress(editedUser.getEmailAddress());
-
+                userOpt.get().setRoles(editedUser.getRoles());
                 this.userService.updateUser(userOpt.get());
 
             }

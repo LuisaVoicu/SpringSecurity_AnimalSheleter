@@ -30,6 +30,10 @@ public class PetTypeService {
         return petTypeMapper.petTypeListEntityToDto(petTypeRepository.findAll());
     }
 
+    public List<PetType> findAllPetTypes(){
+        return petTypeRepository.findAll();
+    }
+
     public PetTypeDto createPetType(PetType petType){
         return petTypeMapper.petTypeEntityToDto(petTypeRepository.save(petType));
     }

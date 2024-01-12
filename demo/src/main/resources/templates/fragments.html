@@ -19,12 +19,12 @@
         <a class="header" href="/users/create"><span sec:authorize="isAuthenticated() and hasAuthority('ADMIN')">Create User</span></a>
         <a class="header" href="/users/delete"><span sec:authorize="isAuthenticated() and hasAuthority('ADMIN')">Delete Users</span></a>
         <a class="header" href="/users/update"><span sec:authorize="isAuthenticated() and hasAuthority('ADMIN')">Update User</span></a>
-        <a class="header" href="/pets/create"><span sec:authorize="isAuthenticated() and hasAuthority('ADMIN')">Create Pet</span></a>
-        <a class="header" href="/pets/delete"><span sec:authorize="isAuthenticated() and hasAuthority('ADMIN')">Delete Pet</span></a>
-        <a class="header" href="/pets/update"><span sec:authorize="isAuthenticated() and hasAuthority('ADMIN')">Update Pets</span></a>
-        <a class="header" href="/roles"><span sec:authorize="isAuthenticated() and hasAuthority('ADMIN')">Roles</span></a></p>
-        <a class="header" href="/pets"><span sec:authorize="isAuthenticated() and hasAuthority('ADMIN')">Pets</span></a></p>
-        <a class="header" href="/petTypes"><span sec:authorize="isAuthenticated() and hasAuthority('ADMIN')">Pet Types</span></a></p>
+        <a class="header" href="/pets"><span sec:authorize="isAuthenticated() and (hasAuthority('ADMIN') or hasAuthority('PET_FOSTER'))">Get Pets</span></a>
+        <a class="header" href="/pets/create"><span sec:authorize="isAuthenticated() and (hasAuthority('ADMIN') or hasAuthority('PET_FOSTER'))">Create Pet</span></a>
+        <a class="header" href="/pets/delete"><span sec:authorize="isAuthenticated() and (hasAuthority('ADMIN') or hasAuthority('PET_FOSTER'))">Delete Pet</span></a>
+        <a class="header" href="/pets/update"><span sec:authorize="isAuthenticated() and (hasAuthority('ADMIN') or hasAuthority('PET_FOSTER'))">Update Pets</span></a>
+        <a class="header" href="/roles"><span sec:authorize="isAuthenticated() and (hasAuthority('ADMIN') or hasAuthority('PET_FOSTER'))">Roles</span></a></p>
+        <a class="header" href="/petTypes"><span sec:authorize="isAuthenticated() and (hasAuthority('ADMIN') or hasAuthority('PET_FOSTER'))">Pet Types</span></a></p>
     <p></p>
 </div>
 
@@ -57,12 +57,18 @@
             <th>First Name</th>
             <th>Last Name</th>
             <th>E-mail address</th>
+            <th>Roles</th>
         </tr>
         <tr th:each="user : ${users}">
             <td th:text="${user.username}"></td>
             <td th:text="${user.firstName}"></td>
             <td th:text="${user.lastName}"></td>
             <td th:text="${user.emailAddress}"></td>
+            <td th:if="${user.roles != null}">
+                <span th:each="role : ${user.roles}" th:if="${roleStat.first}" th:text="${role.role}"></span>
+            </td>
+            <td th:unless="${user.roles != null}">N/A</td>
+
         </tr>
     </table>
 </div>
@@ -74,13 +80,14 @@
             <th>Name</th>
             <th>Age</th>
             <th>Weight</th>
-            <th>Type</th>
+            <th>Pet Type</th>
         </tr>
         <tr th:each="pet : ${pets}">
             <td th:text="${pet.name}"></td>
             <td th:text="${pet.age}"></td>
             <td th:text="${pet.weight}"></td>
-            <td th:text="${pet.pet_type}"></td>
+            <td th:if="${pet.petType != null}" th:text="${pet.petType.name}"></td>
+            <td th:unless="${pet.petType != null}">N/A</td>
         </tr>
     </table>
 </div>
