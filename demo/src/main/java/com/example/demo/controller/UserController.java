@@ -23,8 +23,6 @@ public class UserController {
     private final UserService userService;
 
 
-
-
     // CREATE
     @GetMapping({"/users/create"})
     public String displayCreateUserForm(@RequestParam(value="registrationSuccess", required = false) String success, Model model) {
@@ -86,33 +84,27 @@ public class UserController {
             model.addAttribute("user", user);
         }
 
-        System.out.println("!!!!~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
 
         return "user/update-details";
     }
 
     @PostMapping({"users/update-details"})
     public String processEditUserForm(@ModelAttribute("user") User editedUser, Errors errors, Model model) {
-        System.out.println("###############3 aaaaa");
+
         if (errors.hasErrors()) {
-            System.out.println("errr~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
 
             model.addAttribute("title", "Edit User");
             return "user/update-details";
         } else {
 
-            System.out.println("$$$$$$ " + editedUser.getUsername());
             Optional<User> userOpt = userService.findByUsername(editedUser.getUsername());
-            System.out.println("not_errr~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~   -- " + editedUser.getLastName()+" "+ userOpt.get().getLastName());
 
             if(!userOpt.isEmpty()) {
-//                this.userService.deleteUser(userOpt.get());
 
                 userOpt.get().setFirstName(editedUser.getFirstName());
                 userOpt.get().setLastName(editedUser.getLastName());
                 userOpt.get().setEmailAddress(editedUser.getEmailAddress());
 
-                System.out.println("not_errr~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~   -- " + editedUser.getLastName()+" "+ userOpt.get().getLastName());
                 this.userService.updateUser(userOpt.get());
 
             }

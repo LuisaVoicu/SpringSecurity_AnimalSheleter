@@ -19,8 +19,11 @@
         <a class="header" href="/users/create"><span sec:authorize="isAuthenticated() and hasAuthority('ADMIN')">Create User</span></a>
         <a class="header" href="/users/delete"><span sec:authorize="isAuthenticated() and hasAuthority('ADMIN')">Delete Users</span></a>
         <a class="header" href="/users/update"><span sec:authorize="isAuthenticated() and hasAuthority('ADMIN')">Update User</span></a>
+        <a class="header" href="/pets/create"><span sec:authorize="isAuthenticated() and hasAuthority('ADMIN')">Create Pet</span></a>
+        <a class="header" href="/pets/delete"><span sec:authorize="isAuthenticated() and hasAuthority('ADMIN')">Delete Pet</span></a>
         <a class="header" href="/roles"><span sec:authorize="isAuthenticated() and hasAuthority('ADMIN')">Roles</span></a></p>
-        <a class="header" href="/admin"><span sec:authorize="isAuthenticated() and hasAuthority('ADMIN')">Admin</span></a></p>
+        <a class="header" href="/pets"><span sec:authorize="isAuthenticated() and hasAuthority('ADMIN')">Pets</span></a></p>
+        <a class="header" href="/petTypes"><span sec:authorize="isAuthenticated() and hasAuthority('ADMIN')">Pet Types</span></a></p>
     <p></p>
 </div>
 
@@ -31,6 +34,17 @@
         </tr>
         <tr th:each="role : ${roles}">
             <td th:text="${role.role}"></td>
+        </tr>
+    </table>
+</div>
+
+<div th:fragment="pet_types_table">
+    <table>
+        <tr>
+            <th>Pet Types</th>
+        </tr>
+        <tr th:each="petType : ${petTypes}">
+            <td th:text="${petType.name}"></td>
         </tr>
     </table>
 </div>
@@ -51,6 +65,26 @@
         </tr>
     </table>
 </div>
+
+
+<div th:fragment="pets_table">
+    <table>
+        <tr>
+            <th>Name</th>
+            <th>Age</th>
+            <th>Weight</th>
+            <th>Type</th>
+        </tr>
+        <tr th:each="pet : ${pets}">
+            <td th:text="${pet.name}"></td>
+            <td th:text="${pet.age}"></td>
+            <td th:text="${pet.weight}"></td>
+            <td th:text="${pet.pet_type}"></td>
+        </tr>
+    </table>
+</div>
+
+
 <div th:fragment="footer">
     <div class="footer"><p class="footer">Inginerie Software 2024</p></div>
 </div>

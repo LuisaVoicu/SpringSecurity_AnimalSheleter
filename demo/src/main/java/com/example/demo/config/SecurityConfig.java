@@ -27,9 +27,10 @@ public class SecurityConfig {
                     authConfig.requestMatchers(HttpMethod.POST, "/createUser").permitAll();
                     authConfig.requestMatchers(HttpMethod.GET, "/user").hasAuthority("USER");
                     authConfig.requestMatchers(HttpMethod.GET, "/admin").hasAuthority("ADMIN");
-                    authConfig.requestMatchers(HttpMethod.GET, "/roles").hasAuthority("ADMIN"); //todo --added
+                    authConfig.requestMatchers(HttpMethod.GET, "/roles").hasAuthority("ADMIN");
                     authConfig.requestMatchers(HttpMethod.GET, "/developer").hasAuthority("DEVELOPER");
-                    authConfig.requestMatchers(HttpMethod.GET, "/users").hasAnyAuthority("ADMIN", "DEVELOPER");
+                    authConfig.requestMatchers(HttpMethod.GET, "/developer").hasAuthority("PET_FOSTER");
+                    authConfig.requestMatchers(HttpMethod.GET, "/users").hasAnyAuthority("ADMIN", "DEVELOPER", "PET_FOSTER");
                     authConfig.requestMatchers(HttpMethod.GET, "/authorities").hasAnyAuthority("ADMIN", "DEVELOPER");
                     authConfig.anyRequest().authenticated();
                 })
