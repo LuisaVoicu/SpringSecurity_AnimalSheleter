@@ -11,6 +11,8 @@ public interface PetService {
 
     Pet findPetByID(Integer id);
 
+    Pet findPetByName(String name);
+
     List<PetDto> getAllPets();
 
     PetDto createPet(Pet pet);

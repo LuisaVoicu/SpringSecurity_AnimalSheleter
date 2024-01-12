@@ -18,7 +18,6 @@ public class PetServiceImpl implements PetService{
 
     private final PetMapper petMapper;
 
-
     @Override
     public PetDto getPetById(Integer id) {
         return petMapper.petEntityToDto(petRepository.findById(id).orElse(null));
@@ -28,6 +27,11 @@ public class PetServiceImpl implements PetService{
     public Pet findPetByID(Integer id) {
         return petRepository.findById(id).orElse(null);
 
+    }
+
+    @Override
+    public Pet findPetByName(String name) {
+        return petRepository.findByName(name).orElse(null);
     }
 
     @Override

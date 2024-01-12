@@ -13,7 +13,7 @@ public interface PetRepository extends JpaRepository<Pet, Integer> {
 
     @EntityGraph(type = EntityGraph.EntityGraphType.FETCH,
             attributePaths = {"name"})
-    Optional<User> findByName(String name);
+    Optional<Pet> findByName(String name);
 
     @EntityGraph(type = EntityGraph.EntityGraphType.FETCH,
             attributePaths = {"id"})

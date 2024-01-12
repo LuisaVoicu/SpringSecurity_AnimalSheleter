@@ -9,6 +9,7 @@ import com.example.demo.service.PetService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -62,24 +63,77 @@ public class PetController {
 
 
 
+
+
+    // UPDATE
+
+
+    @GetMapping({"/pets/update"})
+    public String displayEditPetForm(Model model) {
+        model.addAttribute("title", "Edit pets");
+        model.addAttribute("pets", this.petService.getAllPets());
+        return "pet/update";
+    }
+
+
+    @GetMapping({"pets/update-details"})
+    public String displayPetEditDetails(@RequestParam String name, Model model) {
+
+        Pet pet = this.petService.findPetByName(name);
+
+        if (pet == null) {
+            model.addAttribute("title", "Invalid Petname:" + name);
+        } else {
+            model.addAttribute("title", pet.getName() + " Details");
+            model.addAttribute("pet", pet);
+        }
+
+
+        return "pet/update-details";
+    }
+
+    @PostMapping({"pets/update-details"})
+    public String processEditPetForm(@ModelAttribute("pet") Pet editedPet, Errors errors, Model model) {
+
+        if (errors.hasErrors()) {
+
+            model.addAttribute("title", "Edit Pet");
+            return "pet/update-details";
+
+        } else {
+
+            Pet pet = petService.findPetByName(editedPet.getName());
+
+            if(pet != null) {
+
+                pet.setWeight(editedPet.getWeight());
+                pet.setAge(editedPet.getAge());
+                this.petService.updatePet(pet);
+
+            }
+            return "redirect:/pets";
+        }
+
+    }
+
+
+
     // DELETE
     @GetMapping("/pets/delete")
     public String displayDeleteUserForm(Model model) {
         model.addAttribute("title", "Delete Pet");
         model.addAttribute("pets", this.petService.getAllPets());
-        System.out.println("~~~~~~~~~~~~~~");
         return "pet/delete";
     }
 
     @PostMapping("/pets/delete")
-    public String processDeleteUserForm(@ModelAttribute("id") Integer[] petIds) {
-        System.out.println("~~~~~~~~~!!!!!!!!~~~~~~");
+    public String processDeleteUserForm(@ModelAttribute("name") String[] petNames) {
 
-        if (petIds != null) {
+        if (petNames != null) {
 
-            for(Integer id : petIds){
+            for(String name : petNames){
 
-                Pet petOpt = petService.findPetByID(id);
+                Pet petOpt = petService.findPetByName(name);
 
                 if(petOpt != null) {
                     this.petService.deletePet(petOpt);
@@ -87,7 +141,7 @@ public class PetController {
             }
         }
 
-        return "redirect:/users";
+        return "redirect:/pets";
     }
 
 }
