@@ -1,0 +1,44 @@
+html, body{
+    margin: 0px;
+    padding: 0px;
+}
+.body {
+    margin: 20px;
+    padding: 20px;
+}
+h1 {
+    color: blue;
+}
+
+.error {
+    color: red;
+}
+
+.header{
+    margin: 20px;
+    padding: 20px;
+}
+
+a.header {
+    padding: 5px;
+}
+
+th, td{
+    padding: 5px;
+    text-align: left;
+}
+.header{
+    margin: 0px;
+    padding: 10px;
+    background-color: LightGrey;
+}
+
+.footer{
+    margin: 0px;
+    padding: 10px;
+    background-color: LightGrey;
+}
+
+.test {
+    background-color: blue;
+}
