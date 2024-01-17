@@ -27,13 +27,12 @@ public class PetController {
     private final PetTypeService petTypeService;
 
 
-    //todo add Pet type to create operation
 
     // CREATE
     @GetMapping({"/pets/create"})
     public String displayCreatePetForm(Model model) {
 
-        model.addAttribute("title", "Register");
+      //  model.addAttribute("title", "Register");
         model.addAttribute("pet", new Pet());
         model.addAttribute("petTypes", petTypeService.findAllPetTypes());
 
