@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+
+<head th:replace="~{fragments :: head}"></head>
+
+<body>
+<div th:replace="~{fragments :: header}"></div>
+
+
+<h1>Create Pet</h1>
+
+
+<form th:action="@{/pets/create}" method="post" th:object="${pet}" class="px-4">
+
+    <div class="mb-3 row">
+        <label for="name" class="col-sm-2 col-form-label">Name</label>
+        <div class="col-sm-6">
+            <input type="text"  id="name" autofocus="autofocus"
+                   class="form-control" required name="name" th:field="*{name}" >
+        </div>
+    </div>
+
+    <div class="mb-3 row">
+        <label for="age" class="col-sm-2 col-form-label">Age</label>
+        <div class="col-sm-6">
+            <input type="text"  id="age" autofocus="autofocus"
+                   class="form-control" required name="age" th:field="*{age}" >
+        </div>
+    </div>
+
+    <div class="mb-3 row">
+        <label for="weight" class="col-sm-2 col-form-label">Weight</label>
+        <div class="col-sm-6">
+            <input type="text"  id="weight" autofocus="autofocus"
+                   class="form-control" required name="weight" th:field="*{weight}" >
+        </div>
+    </div>
+
+    <div class="mb-3 row">
+        <label>Pet Type
+            <select th:field="${pet.petType}">
+                <option th:each="pet_type : ${petTypes}"
+                        th:value="${pet_type.id}"
+                        th:text="${pet_type.name}"
+                ></option>
+                <p class="error" th:errors="${pet.petType}"></p>
+            </select>
+        </label>
+    </div>
+
+    <div>
+        <button type="submit" class="btn btn-success">Create Pet</button>
+    </div>
+</form>
+
+<div th:replace="~{fragments :: footer}"></div>
+</body>
+</html>
